@@ -32,7 +32,7 @@ const Contacts = () => {
 
     // Add favoritos
 
-    const [favorites, setFavorites] = useState([])
+    const [ favorites , setFavorites ] = useState ( () => { const guardado = localStorage.getItem ( "datos" ); const initialValue = JSON.parse ( guardado ); return initialValue || [] ; }) ;
 
     const addFav = contacto =>{
     
@@ -41,17 +41,16 @@ const Contacts = () => {
             const contacts = favorites.map(item => item.id ===contacto.id ? { ...item, quantity: item.quantity + 1 }
                 : item)
 
-            return setFavorites([...contacts])
-        }   
+            setFavorites([...contacts ])
+        } 
+
         setFavorites([...favorites, contacto])
-        
-    } 
+    }   
 
     useEffect(() => {
         localStorage.setItem('datos', JSON.stringify(favorites));
-    }, [favorites]);
-
-    console.log(favorites);   
+       
+    }, [favorites]);  
 
 
   return (

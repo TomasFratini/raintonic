@@ -4,12 +4,14 @@ const Favorites = () => {
 
     const [items, setItems] = useState([]);
 
-        useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('datos'));
-        if (items) {
-        setItems(items);
-        }
+    const getData = () => {
+        return JSON.parse(localStorage.getItem('datos'));
+    }
+
+    useEffect(() => {
+        setItems(getData());
     }, []);
+
 
   return (
     <div className="overflow-x-auto w-full pt-16">
