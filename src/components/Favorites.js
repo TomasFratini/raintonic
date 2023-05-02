@@ -8,6 +8,14 @@ const Favorites = () => {
         return JSON.parse(localStorage.getItem('datos'));
     }
 
+    const deleteFav = (id) => {
+		
+		const delateFav = items.filter(item => item.id !== id)
+        localStorage.setItem('datos', JSON.stringify(delateFav))
+		setItems(delateFav)
+	}
+
+
     useEffect(() => {
         setItems(getData());
     }, []);
@@ -44,6 +52,9 @@ const Favorites = () => {
                                 <span className="badge badge-ghost badge-sm">{contactos.email}</span>
                             </td>
                             <td>{contactos.phone_number}</td>
+                            <th>
+                                < button  onClick={ () => deleteFav(contactos.id) }  className="btn btn-ghost btn-xs">Quitar de favoritos</button>
+                            </th>
                             </tr>
                         )
                     })

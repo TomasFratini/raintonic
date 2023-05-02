@@ -18,6 +18,10 @@ const Contacts = () => {
 
       obtenerContacts();
     },[]);
+   
+    const searcher = (e) => {
+        setSearch(e.target.value);
+    }   
 
     let results = [];
     if (!search) {
@@ -26,14 +30,11 @@ const Contacts = () => {
         results = contacts.filter((dato) => dato.first_name.toLowerCase().includes(search.toLocaleLowerCase())|| dato.last_name.toLowerCase().includes(search.toLocaleLowerCase()) )
     }
 
-    const searcher = (e) => {
-        setSearch(e.target.value);
-    }   
 
     // Add favoritos
 
     const [ favorites , setFavorites ] = useState ( () => { const guardado = localStorage.getItem ( "datos" ); const initialValue = JSON.parse( guardado ); return initialValue || [] ; }) ;
-   // const [ favorites , setFavorites ] = useState ([]) ;
+
 
     const addFav = contacto =>{
     
@@ -45,14 +46,12 @@ const Contacts = () => {
             return setFavorites([...contacts ])
         } 
 
-        setFavorites([...favorites, contacto])
+        setFavorites([...favorites, contacto]);
     }   
 
     useEffect(() => {
         localStorage.setItem('datos', JSON.stringify(favorites));
     }, [favorites]);  
-
-    console.log(favorites);
 
 
   return (
@@ -72,7 +71,6 @@ const Contacts = () => {
             </thead>
             <tbody>
                 { results.map((contactos, i) => {
-                    
                         return (
                             <tr key={i}>
                             <td>
@@ -92,7 +90,7 @@ const Contacts = () => {
                             </td>
                             <td>{contactos.phone_number}</td>
                             <th>
-                                <button onClick={ () => addFav(contactos) } className="btn btn-ghost btn-xs">Añadir a Favoritos</button>
+                                < button onClick={ () => addFav(contactos) } className="btn btn-ghost btn-xs">Añadir a Favoritos</button>  
                             </th> 
                             </tr>
                         ) 
